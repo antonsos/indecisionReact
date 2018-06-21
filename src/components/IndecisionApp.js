@@ -5,6 +5,7 @@ import Header from './Header';
 import Action from './Action';
 import Options from './Options';
 import AddOption from './AddOption';
+import OptionModal from './OptionModal';
 
 class IndecisionApp extends Component {
   constructor(props) {
@@ -14,9 +15,14 @@ class IndecisionApp extends Component {
     this.handlerPick = this.handlerPick.bind(this);
     this.handlerAddOption = this.handlerAddOption.bind(this);
     this.handlerRemoveItem = this.handlerRemoveItem.bind(this);
+    this.handlerCloseModal = this.handlerCloseModal.bind(this);
 
     this.state = {
-      options: []
+      options: [],
+      title: 'Indecision',
+      subtitle: 'Put your life in the hands of a computer',
+      error: undefined,
+      modalLogic: ''
     }
   }
 
@@ -50,22 +56,32 @@ class IndecisionApp extends Component {
 
   handlerPick() {
     const whatDo = Math.floor(Math.random() * this.state.options.length);
-    alert(this.state.options[whatDo]);
+    this.setState(() => ({
+      modalLogic: this.state.options[whatDo]
+    }));
+  }
+
+  handlerCloseModal() {
+    this.setState(() => ({
+      modalLogic: ''
+    }));
   }
 
   handlerAddOption(option) {
     option.preventDefault();
-
+    this.setState({ error: undefined });
     const optionValue = option.target.elements.option.value.trim();
     option.target.elements.option.value = '';
+
+    
     
     if(!optionValue) {
-      alert('Enter valid value')
-    } else if (this.state.options.indexOf(optionValue) > -1) {
-      alert('This option already')
-    } else {
+      this.setState(() => ({ error: 'Enter valid value to add item' }));
+    } else if(this.state.options.indexOf(optionValue) > -1) {
+      this.setState(() => ({ error: 'This option already exists' }));
+    } else if(optionValue) {
       this.setState((prevState) => ({
-        options: prevState.options.concat([optionValue])
+        options: prevState.options.concat(optionValue)
       }));
     }
   }
@@ -79,21 +95,32 @@ class IndecisionApp extends Component {
   }
 
   render() {
-    const title = 'Indecision';
-    const subtitle = 'Put your life in the hands of a computer';
+    
     return (
       <div>
-        <Header title={title} subtitle={subtitle} />
-        <Action 
-          hasOptions={this.state.options.length > 0} 
-          handlerPick={this.handlerPick}
+        <Header title={this.state.title} subtitle={this.state.subtitle} />
+        <div className='container'>
+          <Action 
+            hasOptions={this.state.options.length > 0} 
+            handlerPick={this.handlerPick}
+          />
+          <div className='widget'>
+            <Options 
+              options={this.state.options} 
+              handlerDeleteOptions={this.handlerDeleteOptions} 
+              handlerRemoveItem={this.handlerRemoveItem}
+            />
+            <AddOption 
+              error={this.state.error}
+              handlerAddOption={this.handlerAddOption} 
+            />
+          </div>
+        </div>
+        <OptionModal
+         modalLogic={this.state.modalLogic}
+         modalText={this.state.modalText}
+         handlerCloseModal={this.handlerCloseModal}
         />
-        <Options 
-          options={this.state.options} 
-          handlerDeleteOptions={this.handlerDeleteOptions} 
-          handlerRemoveItem={this.handlerRemoveItem}
-        />
-        <AddOption handlerAddOption={this.handlerAddOption} />
       </div>
     );
   }

@@ -2,13 +2,19 @@ import React from 'react';
 
 const Option = (props) => {
   return (
-    <ul>
+    <ul className='options'>
       {
-        props.options.map((option) => {
-          return <li key={option}>
-            {option}
-            <button onClick={(e) => props.handlerRemoveItem(option)}>remove</button>
-            </li>
+        props.options.map((option, i) => {
+          return (
+            <li key={i}
+              className='option'
+            >
+            <p className='option__text'>{i + 1}. {option}</p>
+            <button 
+              className='button button--link'
+              onClick={(e) => props.handlerRemoveItem(option)}
+            >remove</button>
+            </li>)
         })
       }
     </ul>

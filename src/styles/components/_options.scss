@@ -1,0 +1,21 @@
+.options {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $xs-size $m-size;
+  border-bottom: 2px solid lighten($color-light-blue, 10%);
+  
+
+  &__text {
+    padding: 0;
+    color: $color-light;
+    font-weight: 500;
+    font-size: $msl-size;
+  }
+}

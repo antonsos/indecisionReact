@@ -1,0 +1,63 @@
+.big-button {
+  display: block;
+  width: 100%;
+  padding: $m-size $l-size;
+  margin: 0 auto;
+  margin-bottom: $l-size;
+  border: none;
+  background-color: $color-primary-dark;
+  box-shadow: 0 .6rem 0 darken($color-primary-dark, 20%);
+  color: lighten($color-primary, 20%);
+  font-size: $l-size;
+  font-weight: 600;
+
+  transition: .3s;
+}
+
+.big-button:active {
+  transform: translateY(.3rem);
+  box-shadow: 0 .3rem 0 darken($color-primary-dark, 20%);
+}
+
+.big-button:disabled {
+  background-color: lighten($color-primary-dark, 20%);
+}
+
+.button {
+  width: 100%;
+  padding: $s-size;
+  border: none;
+  background-color: $color-primary-dark;
+  border-bottom: .2rem solid darken($color-primary-dark, 20%);
+  color: $color-light;
+  font-weight: 500;
+}
+
+.button:active {
+  box-shadow: 0 0 0 darken($color-primary-dark, 20%);
+  transform: translateY(.2rem);
+}
+
+.button--link {
+  width: auto;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  color: $color-primary;
+
+  transition: .3s;
+}
+
+.button--link:active {
+  opacity: .5;
+}
+
+@media (min-width: 45rem) {
+  .button {
+    width: auto;
+  }
+
+  .button--link {
+    width: auto;
+  }
+}

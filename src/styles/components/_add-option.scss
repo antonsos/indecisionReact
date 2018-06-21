@@ -1,0 +1,44 @@
+.add-option-error {
+  padding: 0 $m-size;
+  margin: $s-size 0;
+  color: $color-light;
+  font-weight: 600;
+  font-style: italic;
+  text-align: center;
+}
+
+.add-option {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: $s-size $m-size;
+}
+
+.add-option__input {
+  width: 100%;
+  padding: $s-size;
+  margin-right: 0;
+  margin-bottom: $m-size;
+  border: none;
+  border-bottom: .2rem solid darken($color-primary-dark, 20%);
+  background-color: darken($color-light-blue, 20%);
+  color: $color-light;
+  font-size: $m-size;
+  font-weight: bold;
+
+  box-sizing: border-box;
+}
+
+@media (min-width: 45rem) {
+  .add-option {
+    flex-direction: row;
+  }
+
+  .add-option__input {
+    flex-grow: 1;
+    width: auto;
+    margin-right: $m-size;
+    margin-bottom: 0;
+  }
+}
